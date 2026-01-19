@@ -12,11 +12,14 @@ import java.util.Date;
 public class DialogoAlta extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogoAlta.class.getName());
-    private PantallaPrincipal pantallaPrincipal;
+    private final PantallaPrincipal pantallaPrincipal;
 
     /**
      * Creates new form DialogoAlta
+     * @param parent
+     * @param modal
      */
+    
     public DialogoAlta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -62,10 +65,7 @@ public class DialogoAlta extends javax.swing.JDialog {
         jLabel3.setText("Fecha de alta:");
 
         spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel());
-
-        jtfApellidos.setText("jTextField1");
-
-        jtfNombre.setText("jTextField1");
+        spinnerFechaAlta.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,13 +127,18 @@ public class DialogoAlta extends javax.swing.JDialog {
         String nombre = jtfNombre.getText();
         String apellidos = jtfApellidos.getText();
         
+        if (nombre.isEmpty() || apellidos.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El nombre y los apellidos son obligatorios.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        
         Date fechaAlta = (Date) spinnerFechaAlta.getValue(); // cast desde Object
         String provincia = (String) jcbProvincia.getSelectedItem(); // cast desde Object
         
         Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
         pantallaPrincipal.anadirCliente(cliente);
-        
-        dispose(); // cierra y libera recursos; mejor que setVisible(false)
+         
+        dispose(); // cierra y libera recursos; mejor que setVisible(false)       
     }//GEN-LAST:event_btnAltaActionPerformed
 
     /**
