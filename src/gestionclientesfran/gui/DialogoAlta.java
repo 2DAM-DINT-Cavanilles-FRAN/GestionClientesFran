@@ -48,6 +48,11 @@ public class DialogoAlta extends javax.swing.JDialog {
         jcbProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Asturias", "Cantabria", "León", " " }));
 
         btnAlta.setText("Alta");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nombre:");
 
@@ -115,6 +120,20 @@ public class DialogoAlta extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+        // TODO add your handling code here:
+        String nombre = jtfNombre.getText();
+        String apellidos = jtfApellidos.getText();
+        
+        Date fechaAlta = (Date) spinnerFechaAlta.getValue(); // cast desde Object
+        String provincia = (String) jcbProvincia.getSelectedItem(); // cast desde Object
+        
+        Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
+        pantallaPrincipal.anadirCliente(cliente);
+        
+        dispose(); // cierra y libera recursos; mejor que setVisible(false)
+    }//GEN-LAST:event_btnAltaActionPerformed
 
     /**
      * @param args the command line arguments
