@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package gestionclientesfran.gui;
+import gestionclientesfran.dto.Cliente;
 import java.util.Date;
 /**
  *
