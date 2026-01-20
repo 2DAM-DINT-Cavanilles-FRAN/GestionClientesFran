@@ -16,6 +16,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName());
     private java.util.List<Cliente> listaClientes = new java.util.ArrayList<>();
+    private javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> sorter;
     /**
      * Creates new form PantallaPrincipal
      */
@@ -28,6 +29,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
         clientes.setModel(dtm); // 'clientes' es la JTable del diseñador
+        sorter = new javax.swing.table.TableRowSorter<>(dtm);
+        clientes.setRowSorter(sorter);
     }
     
     public void anadirCliente(Cliente cliente) {
@@ -51,6 +54,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jtfBusqueda = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         altaAction = new javax.swing.JMenuItem();
@@ -91,6 +96,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Buscar Nombre:");
+
+        jtfBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfBusquedaKeyReleased(evt);
+            }
+        });
+
         jMenu2.setText("Clientes");
 
         altaAction.setText("Alta...");
@@ -109,26 +122,38 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(12, 12, 12)
-                .addComponent(jButton2)
-                .addContainerGap(115, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfBusqueda))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jtfBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,6 +222,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jtfBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBusquedaKeyReleased
+        // TODO add your handling code here:                                   
+    
+    String textoBusqueda = jtfBusqueda.getText();
+
+    if (textoBusqueda.trim().length() == 0) {
+        sorter.setRowFilter(null); // Si está vacío, mostrar todo
+    } else {
+        sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + textoBusqueda, 0));
+    }
+    }//GEN-LAST:event_jtfBusquedaKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -228,8 +265,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jtfBusqueda;
     // End of variables declaration//GEN-END:variables
 }
