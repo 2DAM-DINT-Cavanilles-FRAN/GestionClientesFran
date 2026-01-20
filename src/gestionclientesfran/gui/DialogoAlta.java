@@ -138,7 +138,7 @@ public class DialogoAlta extends javax.swing.JDialog {
         Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
         pantallaPrincipal.anadirCliente(cliente);
          
-        dispose(); // cierra y libera recursos; mejor que setVisible(false)       
+        dispose();       
     }//GEN-LAST:event_btnAltaActionPerformed
 
     /**
