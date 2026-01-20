@@ -6,9 +6,10 @@ package gestionclientesfran.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.Serializable;
 
 
-public class Cliente {
+public class Cliente implements Serializable {
  private String nombre;
  private String apellidos;
  private Date fechaAlta;

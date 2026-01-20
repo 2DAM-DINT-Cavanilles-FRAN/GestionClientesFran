@@ -6,6 +6,8 @@ package gestionclientesfran.gui;
 
 import javax.swing.table.DefaultTableModel;
 import gestionclientesfran.dto.Cliente;
+import java.awt.HeadlessException;
+import java.io.IOException;
 /**
  *
  * @author franc
@@ -13,7 +15,7 @@ import gestionclientesfran.dto.Cliente;
 public class PantallaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName());
-
+    private java.util.List<Cliente> listaClientes = new java.util.ArrayList<>();
     /**
      * Creates new form PantallaPrincipal
      */
@@ -29,6 +31,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
     
     public void anadirCliente(Cliente cliente) {
+        listaClientes.add(cliente);
         DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
         dtm.addRow(cliente.toArrayString());
  }
@@ -46,6 +49,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         altaAction = new javax.swing.JMenuItem();
@@ -72,6 +77,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Cargar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         jMenu2.setText("Clientes");
 
         altaAction.setText("Alta...");
@@ -90,19 +109,26 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addGap(12, 12, 12)
+                .addComponent(jButton2)
+                .addContainerGap(115, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         pack();
@@ -124,6 +150,52 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             dtm.removeRow(filaSeleccionada);
 }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    try {
+        // Creamos el flujo de salida hacia el archivo "clientes.dat"
+        java.io.FileOutputStream fos = new java.io.FileOutputStream("clientes.dat");
+        java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
+
+        // Escribimos la lista completa de objetos
+        oos.writeObject(listaClientes);
+        
+        oos.close(); // Cerramos el flujo
+        javax.swing.JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
+        
+    } catch (HeadlessException | IOException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+    }    
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    try {
+        // Abrimos el flujo de entrada desde el archivo
+        java.io.FileInputStream fis = new java.io.FileInputStream("clientes.dat");
+        java.io.ObjectInputStream ois = new java.io.ObjectInputStream(fis);
+
+        // Leemos el objeto y lo convertimos (cast) a una lista de Clientes
+        listaClientes = (java.util.List<Cliente>) ois.readObject();
+        ois.close();
+
+        // Limpiamos la tabla visual actual
+        DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
+        dtm.setRowCount(0);
+
+        // Recorremos la lista cargada y llenamos la tabla de nuevo
+        for (Cliente c : listaClientes) {
+            dtm.addRow(c.toArrayString());
+        }
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "Datos cargados correctamente.");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar (¿existe el archivo?): " + e.getMessage());
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,6 +226,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem altaAction;
     private javax.swing.JTable clientes;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
