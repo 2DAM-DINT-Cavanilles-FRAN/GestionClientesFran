@@ -28,7 +28,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         this.getContentPane().setBackground(new java.awt.Color(240, 248, 255)); 
 
         // 2. Estilo de la Tabla
-        clientes.setRowHeight(25); // Filas más altas para que respire el texto
+        clientes.setRowHeight(25); 
         clientes.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
 
         // 3. Estilo de la Cabecera de la tabla
@@ -43,7 +43,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia","Email","Teléfono"});
-        clientes.setModel(dtm); // 'clientes' es la JTable del diseñador
+        clientes.setModel(dtm);
         sorter = new javax.swing.table.TableRowSorter<>(dtm);
         clientes.setRowSorter(sorter);
     }
@@ -195,14 +195,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
     try {
-        // Creamos el flujo de salida hacia el archivo "clientes.dat"
         java.io.FileOutputStream fos = new java.io.FileOutputStream("clientes.dat");
         java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
 
-        // Escribimos la lista completa de objetos
         oos.writeObject(listaClientes);
         
-        oos.close(); // Cerramos el flujo
+        oos.close();
         javax.swing.JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
         
     } catch (HeadlessException | IOException e) {
@@ -244,7 +242,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     String textoBusqueda = jtfBusqueda.getText();
 
     if (textoBusqueda.trim().length() == 0) {
-        sorter.setRowFilter(null); // Si está vacío, mostrar todo
+        sorter.setRowFilter(null);
     } else {
         sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + textoBusqueda, 0));
     }

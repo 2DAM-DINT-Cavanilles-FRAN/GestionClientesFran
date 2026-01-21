@@ -182,7 +182,7 @@ public class DialogoAlta extends javax.swing.JDialog {
         // 1. Si no es número, bloquear
         if (!Character.isDigit(c)) {
             evt.consume();
-            return; // Salimos para no seguir comprobando
+            return;
         }
 
         // 2. Si ya hay 9 caracteres, bloquear (para que no escriban más)
