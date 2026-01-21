@@ -24,6 +24,7 @@ public class DialogoAlta extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         pantallaPrincipal = (PantallaPrincipal) parent;
+        this.getContentPane().setBackground(new java.awt.Color(240, 248, 255));
     }
 
     /**
@@ -44,6 +45,10 @@ public class DialogoAlta extends javax.swing.JDialog {
         spinnerFechaAlta = new javax.swing.JSpinner();
         jtfApellidos = new javax.swing.JTextField();
         jtfNombre = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jtfEmail = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jtfTelefono = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -67,24 +72,34 @@ public class DialogoAlta extends javax.swing.JDialog {
         spinnerFechaAlta.setModel(new javax.swing.SpinnerDateModel());
         spinnerFechaAlta.setFocusable(false);
 
+        jLabel5.setText("Email:");
+
+        jLabel6.setText("Telefono");
+
+        jtfTelefono.setActionCommand("<Not Set>");
+        jtfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfTelefonoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(56, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnAlta)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAlta)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jcbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(spinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -93,7 +108,15 @@ public class DialogoAlta extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -107,15 +130,23 @@ public class DialogoAlta extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(spinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnAlta)
                 .addGap(23, 23, 23))
         );
@@ -127,20 +158,38 @@ public class DialogoAlta extends javax.swing.JDialog {
         // TODO add your handling code here:
         String nombre = jtfNombre.getText();
         String apellidos = jtfApellidos.getText();
-        
-        if (nombre.isEmpty() || apellidos.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "El nombre y los apellidos son obligatorios.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        String email = jtfEmail.getText();
+        String telefono = jtfTelefono.getText();
+    
+        if (nombre.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Inserta tus datos en Nombre, Apellidos, Telefono y email", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         return;
         }
         
-        Date fechaAlta = (Date) spinnerFechaAlta.getValue(); // cast desde Object
-        String provincia = (String) jcbProvincia.getSelectedItem(); // cast desde Object
+        Date fechaAlta = (Date) spinnerFechaAlta.getValue(); 
+        String provincia = (String) jcbProvincia.getSelectedItem();
         
-        Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
+        Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia, email, telefono);
         pantallaPrincipal.anadirCliente(cliente);
          
         dispose();       
     }//GEN-LAST:event_btnAltaActionPerformed
+
+    private void jtfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // 1. Si no es número, bloquear
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return; // Salimos para no seguir comprobando
+        }
+
+        // 2. Si ya hay 9 caracteres, bloquear (para que no escriban más)
+        if (jtfTelefono.getText().length() >= 9) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfTelefonoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -185,9 +234,13 @@ public class DialogoAlta extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JComboBox<String> jcbProvincia;
     private javax.swing.JTextField jtfApellidos;
+    private javax.swing.JTextField jtfEmail;
     private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTextField jtfTelefono;
     private javax.swing.JSpinner spinnerFechaAlta;
     // End of variables declaration//GEN-END:variables
 }

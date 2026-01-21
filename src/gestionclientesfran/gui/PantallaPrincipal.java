@@ -6,6 +6,7 @@ package gestionclientesfran.gui;
 
 import javax.swing.table.DefaultTableModel;
 import gestionclientesfran.dto.Cliente;
+import java.awt.Color;
 import java.awt.HeadlessException;
 import java.io.IOException;
 /**
@@ -28,16 +29,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         // 2. Estilo de la Tabla
         clientes.setRowHeight(25); // Filas más altas para que respire el texto
-        clientes.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14)); // Fuente moderna
+        clientes.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
 
         // 3. Estilo de la Cabecera de la tabla
         clientes.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
-        clientes.getTableHeader().setForeground(java.awt.Color.BLACK); // Texto blanco
+        clientes.getTableHeader().setForeground(java.awt.Color.BLACK);
+        
+        btnGuardar.setBackground(new java.awt.Color(144, 238, 144));
+        btnEliminar.setBackground(new java.awt.Color(255, 182, 193)); 
+        btnCargar.setBackground(new java.awt.Color(255,255,0));
         }
     
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
-        dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
+        dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia","Email","Teléfono"});
         clientes.setModel(dtm); // 'clientes' es la JTable del diseñador
         sorter = new javax.swing.table.TableRowSorter<>(dtm);
         clientes.setRowSorter(sorter);
@@ -61,9 +66,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         clientes = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jtfBusqueda = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -75,35 +80,35 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
         jScrollPane1.setViewportView(clientes);
 
-        jButton1.setText("Eliminar Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setText("Eliminar Cliente");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Guardar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Cargar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCargar.setText("Cargar");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCargarActionPerformed(evt);
             }
         });
 
@@ -142,11 +147,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfBusqueda))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnCargar)
                         .addGap(12, 12, 12)
-                        .addComponent(jButton2)
+                        .addComponent(btnGuardar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -161,9 +166,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCargar))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
 
@@ -176,7 +181,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         dialogoAlta.setVisible(true);
     }//GEN-LAST:event_altaActionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dtm = (DefaultTableModel) clientes.getModel();
         int filaSeleccionada = clientes.getSelectedRow();
@@ -185,9 +190,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         } else {
             dtm.removeRow(filaSeleccionada);
 }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
     try {
         // Creamos el flujo de salida hacia el archivo "clientes.dat"
@@ -203,9 +208,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     } catch (HeadlessException | IOException e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
     }    
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
     try {
         // Abrimos el flujo de entrada desde el archivo
@@ -231,7 +236,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         e.printStackTrace();
         javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar (¿existe el archivo?): " + e.getMessage());
     }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCargarActionPerformed
 
     private void jtfBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBusquedaKeyReleased
         // TODO add your handling code here:                                   
@@ -272,10 +277,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem altaAction;
+    private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JTable clientes;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
