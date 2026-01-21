@@ -21,9 +21,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      * Creates new form PantallaPrincipal
      */
     public PantallaPrincipal() {
-        initComponents(); // generado por NetBeans
-        inicializarTabla(); // SIEMPRE después de initComponents()
-    }
+        initComponents(); 
+        inicializarTabla();
+        // 1. Color de fondo de la ventana
+        this.getContentPane().setBackground(new java.awt.Color(240, 248, 255)); 
+
+        // 2. Estilo de la Tabla
+        clientes.setRowHeight(25); // Filas más altas para que respire el texto
+        clientes.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14)); // Fuente moderna
+
+        // 3. Estilo de la Cabecera de la tabla
+        clientes.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        clientes.getTableHeader().setForeground(java.awt.Color.BLACK); // Texto blanco
+        }
     
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
@@ -61,6 +71,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         altaAction = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(240, 248, 255));
 
         clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
